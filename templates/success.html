@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1><span class="blink">&#9733;</span> You've Got A Screen Name! <span class="blink">&#9733;</span></h1>
+<p style="text-align:center; font-size:17px;">
+  Welcome aboard, <strong>{{ screen_name }}</strong>!<br>
+  Your account is ready to go.
+</p>
+
+<hr class="dashed">
+
+<table class="form-table" style="margin:0 auto;">
+  <tr><td class="field-label">Server (Host):</td><td><code>{{ oscar_host }}</code></td></tr>
+  <tr><td class="field-label">Port:</td><td><code>{{ oscar_port }}</code></td></tr>
+  <tr><td class="field-label">Screen Name:</td><td>{{ screen_name }}</td></tr>
+</table>
+
+<p style="text-align:center; margin-top:18px;">
+  Now go install AIM and sign on!<br>
+  <a href="/guide"><strong>&raquo; Step-by-step install guide &laquo;</strong></a>
+</p>
+
+<p style="text-align:center;">
+  <a href="/">&laquo; Back to sign-up</a>
+</p>
+{% endblock %}

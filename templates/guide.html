@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Back on AIM</title>
+<style>
+:root{
+  --paper:#F6F1E7;
+  --paper-raised:#FFFFFF;
+  --ink:#24201A;
+  --ink-soft:#5B5245;
+  --line:#E3D9C6;
+  --amber:#B8701E;
+  --amber-soft:#F3E0BE;
+  --teal:#2F5C57;
+  --teal-soft:#E1EBE8;
+  --danger-soft:#F6E2DD;
+  --danger-ink:#8C3B24;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#17140F;
+    --paper-raised:#221E17;
+    --ink:#ECE4D3;
+    --ink-soft:#B7AA92;
+    --line:#3A342A;
+    --amber:#E3A44E;
+    --amber-soft:#3D2E17;
+    --teal:#7FBBB2;
+    --teal-soft:#1E2F2C;
+    --danger-soft:#3A241D;
+    --danger-ink:#E8A085;
+  }
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{ font-family:ui-monospace, SFMono-Regular, Consolas, Menlo, monospace; }
+a{ color:var(--teal); }
+a:focus-visible, .pill:focus-visible{ outline:2px solid var(--amber); outline-offset:2px; }
+.page{ max-width:700px; margin:0 auto; padding:2rem 1.5rem 5rem; display:flex; flex-direction:column; gap:3rem; }
+.backlink{ font-size:0.9rem; font-weight:600; }
+.eyebrow{ text-transform:uppercase; letter-spacing:0.12em; font-size:0.72rem; font-weight:700; color:var(--teal); display:flex; align-items:center; gap:0.5rem; }
+.status-dot{ width:8px; height:8px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 3px var(--amber-soft); animation:pulse 2.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){ .status-dot{ animation:none; } }
+@keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.45; } }
+h1{ font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif; font-size:2.5rem; font-weight:600; margin:0.4rem 0 0.6rem; text-wrap:balance; letter-spacing:-0.01em; }
+.lede{ font-size:1.05rem; color:var(--ink-soft); max-width:58ch; margin:0; }
+.card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:1.5rem 1.75rem; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
+.card-label{ text-transform:uppercase; letter-spacing:0.1em; font-size:0.7rem; font-weight:700; color:var(--ink-soft); margin-bottom:0.9rem; }
+.card-fields{ display:grid; grid-template-columns:auto 1fr; gap:0.6rem 1.5rem; align-items:baseline; }
+.card-fields dt{ font-size:0.85rem; color:var(--ink-soft); font-weight:600; }
+.card-fields dd{ margin:0; font-size:1.15rem; font-weight:600; }
+.card-fields dd.mono{ color:var(--amber); }
+.card-note{ margin:1.1rem 0 0; padding-top:1rem; border-top:1px dashed var(--line); font-size:0.88rem; color:var(--ink-soft); }
+.jump{ display:flex; flex-wrap:wrap; gap:0.6rem; }
+.pill{ display:inline-block; padding:0.45rem 1rem; border-radius:999px; background:var(--teal-soft); color:var(--teal); font-size:0.85rem; font-weight:600; text-decoration:none; border:1px solid transparent; }
+.pill:hover{ border-color:var(--teal); }
+section{ scroll-margin-top:2rem; display:flex; flex-direction:column; gap:1rem; }
+section h2{ font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif; font-size:1.55rem; font-weight:600; margin:0; text-wrap:balance; }
+.section-eyebrow{ text-transform:uppercase; letter-spacing:0.1em; font-size:0.72rem; font-weight:700; color:var(--amber); margin:0; }
+section > p{ margin:0; color:var(--ink-soft); max-width:60ch; }
+ol.steps{ margin:0; padding:0; list-style:none; counter-reset:step; display:flex; flex-direction:column; gap:0.9rem; }
+ol.steps > li{ counter-increment:step; display:grid; grid-template-columns:2rem 1fr; gap:0.9rem; align-items:start; }
+ol.steps > li::before{ content:counter(step); width:2rem; height:2rem; border-radius:50%; background:var(--amber-soft); color:var(--amber); font-weight:700; font-size:0.9rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+ol.steps > li > div{ padding-top:0.15rem; }
+ol.steps code{ background:var(--teal-soft); color:var(--teal); padding:0.1rem 0.4rem; border-radius:5px; font-size:0.9em; }
+ol.steps .path{ display:block; margin-top:0.35rem; padding:0.5rem 0.7rem; background:var(--paper-raised); border:1px solid var(--line); border-radius:8px; font-size:0.85rem; overflow-x:auto; white-space:pre; }
+.callout{ border-radius:12px; padding:1.25rem 1.5rem; background:var(--danger-soft); display:flex; flex-direction:column; gap:0.5rem; }
+.callout .callout-label{ font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:700; color:var(--danger-ink); }
+.callout p{ margin:0; color:var(--ink); }
+.callout p.soft{ color:var(--ink-soft); font-size:0.92rem; }
+hr.div{ border:none; border-top:1px solid var(--line); margin:0; }
+footer{ font-size:0.82rem; color:var(--ink-soft); }
+footer p{ margin:0 0 0.4rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="backlink"><a href="/">&laquo; Back to Sign-Up</a></p>
+
+  <header>
+    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>{{ network_name }}</p>
+    <h1>Getting Back on AIM</h1>
+    <p class="lede">This connects you to a private instant‑messaging server we run ourselves — not the real AOL network, which shut down years ago. It works with the actual classic AIM software from the early 2000s, so you'll be installing an app below rather than visiting a website.</p>
+  </header>
+
+  <div class="card">
+    <p class="card-label">Your Server Address</p>
+    <dl class="card-fields">
+      <dt>Host</dt><dd class="mono">{{ oscar_host }}</dd>
+      <dt>Port</dt><dd class="mono">{{ oscar_port }}</dd>
+    </dl>
+    <p class="card-note">Don't have a screen name yet? <a href="/">Sign up here first</a>.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to a platform">
+    <a class="pill" href="#macos">🍎 macOS</a>
+    <a class="pill" href="#windows">🪟 Windows</a>
+    <a class="pill" href="#web">🌐 Web browser</a>
+    <a class="pill" href="#mobile">📱 Phone</a>
+  </nav>
+
+  <hr class="div" />
+
+  <section id="macos">
+    <p class="section-eyebrow">macOS · Intel &amp; Apple Silicon</p>
+    <h2>Install AIM on a Mac</h2>
+    <p>Since Apple doesn't make old AIM for modern Macs, we'll use a free community project that wraps the real, original AIM software so it runs natively on your Mac.</p>
+    <ol class="steps">
+      <li><div>Go to the <strong>im-for-macos</strong> releases page and download the newest <code>.zip</code> file:<br><a href="https://github.com/mk6i/im-for-macos/releases" target="_blank" rel="noopener">github.com/mk6i/im-for-macos/releases</a></div></li>
+      <li><div>Find the downloaded file in your <strong>Downloads</strong> folder and double‑click it to unzip. You'll get a file called <strong>AOL Instant Messenger.app</strong>.</div></li>
+      <li><div>Since this app isn't from the Mac App Store, macOS will block it until you clear one flag. Open the <strong>Terminal</strong> app and paste this, then press Return:
+        <span class="path">sudo xattr -d com.apple.quarantine ~/Downloads/AOL\ Instant\ Messenger.app</span>
+        It will ask for your Mac password (nothing will appear as you type — that's normal). This step only unblocks this one app; it's safe.
+      </div></li>
+      <li><div>Drag <strong>AOL Instant Messenger.app</strong> into your <strong>Applications</strong> folder.</div></li>
+      <li><div>Open it from Applications. The first time, it will ask permission to download the real AIM installer — click <strong>Yes</strong> and wait a minute for it to finish.</div></li>
+      <li><div>The AIM installer wizard will pop up. Click through it, keeping all the default options.</div></li>
+      <li><div>AIM will open to the sign‑on screen. Click <strong>Setup</strong>, then choose <strong>Connection</strong> under Sign On/Off. Enter <strong>{{ oscar_host }}</strong> as the Host and <strong>{{ oscar_port }}</strong> as the Port, then click <strong>OK</strong>.</div></li>
+      <li><div>Type in your screen name and password, and click <strong>Sign On</strong> — you're in!</div></li>
+    </ol>
+  </section>
+
+  <hr class="div" />
+
+  <section id="windows">
+    <p class="section-eyebrow">Windows 10 / 11</p>
+    <h2>Install AIM on Windows</h2>
+    <p>We'll install a genuine old copy of AIM (version 5.9) and tell Windows to run it in a compatibility mode so it behaves like it did in the 2000s.</p>
+    <ol class="steps">
+      <li><div>Download the compatible client: <a href="https://www.oldversion.com/windows/aol-instant-messenger/aol-instant-messenger-5-9-6089/" target="_blank" rel="noopener">AIM 5.9.6089</a>.</div></li>
+      <li><div>Run the installer and finish setup, then close AIM completely.</div></li>
+      <li><div>Open the <strong>Task Manager</strong> (right‑click the taskbar → Task Manager) and make sure <strong>AOL Instant Messenger (32 bit)</strong> isn't still running. If it is, click it and choose <strong>End Task</strong>.</div></li>
+      <li><div>Open <strong>File Explorer</strong> and go to:
+        <span class="path mono">C:\Program Files (x86)\AIM</span>
+        Find the file <code>aimapi.dll</code> and delete it.
+      </div></li>
+      <li><div>Right‑click <code>aim.exe</code> in that same folder → <strong>Properties</strong> → <strong>Compatibility</strong> tab. Check <strong>Run this program in compatibility mode for</strong> and choose <strong>Windows XP (Service Pack 3)</strong>. Click <strong>OK</strong>.</div></li>
+      <li><div>Open AIM. At the sign‑on screen, click <strong>Setup</strong>, then <strong>Connection</strong> under Sign On/Off. Enter <strong>{{ oscar_host }}</strong> as the Host and <strong>{{ oscar_port }}</strong> as the Port, then click <strong>OK</strong>.</div></li>
+      <li><div>Enter your screen name and password, and sign on.</div></li>
+    </ol>
+  </section>
+
+  <hr class="div" />
+
+  <section id="web">
+    <p class="section-eyebrow">Web browser</p>
+    <h2>Is there a web version?</h2>
+    <p>No — and it's not really possible to add one. AIM doesn't speak the language web pages use (HTTP); it uses an older messaging protocol from the 1990s called OSCAR, built for a standalone app, not a browser tab. There's no page to open — you'll need to install one of the apps on this page.</p>
+  </section>
+
+  <hr class="div" />
+
+  <section id="mobile">
+    <p class="section-eyebrow">iOS &amp; Android</p>
+    <h2>What about my phone?</h2>
+    <div class="callout">
+      <p class="callout-label">No confirmed option</p>
+      <p>We looked for a phone app that can connect to a private AIM server like ours. Nothing currently on the App Store or Play Store is confirmed to work.</p>
+      <p class="soft">The closest lead is <strong>Trillian</strong>, a chat app with iOS, Android, and web versions that has historically supported AIM. We couldn't confirm whether its current version lets you point it at a custom server instead of Trillian's own network — it's a real long shot, not a recommendation. Old apps like BeejiveIM technically once supported AIM too, but appear abandoned and unmaintained. For now, the desktop apps above are the reliable path.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Not affiliated with AOL — this runs on open-source software (<a href="https://github.com/mk6i/open-oscar-server" target="_blank" rel="noopener">open-oscar-server</a>) that speaks the same protocol the original AIM did.</p>
+    <p>Stuck? Reach out to whoever sent you this guide.</p>
+  </footer>
+
+</div>
+</body>
+</html>

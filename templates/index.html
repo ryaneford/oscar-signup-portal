@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to AOL Instant Messenger!</h1>
+<p style="text-align:center;">
+  <span class="goldstar">&#9733;</span> Talk to your friends for FREE! <span class="goldstar">&#9733;</span><br>
+  Pick a screen name below and start chatting today.
+</p>
+
+<hr class="dashed">
+
+<h2>New User Registration</h2>
+<form action="/signup" method="post">
+  <table class="form-table">
+    <tr>
+      <td class="field-label">Screen Name:</td>
+      <td><input type="text" name="screen_name" maxlength="16" required autofocus></td>
+    </tr>
+    <tr>
+      <td class="field-label">Password:</td>
+      <td><input type="password" name="password" maxlength="32" required></td>
+    </tr>
+    <tr>
+      <td class="field-label">Confirm Password:</td>
+      <td><input type="password" name="confirm" maxlength="32" required></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="btn-3d">Sign Me Up!</button></td>
+    </tr>
+  </table>
+</form>
+<p style="font-size:12px; color:#555;">
+  Screen names: 3&ndash;16 characters, must start with a letter (letters, numbers &amp; spaces only).<br>
+  Passwords: 4&ndash;32 characters.
+</p>
+
+<hr class="dashed">
+
+<p style="text-align:center;">
+  Already signed up? <a href="/guide"><strong>&raquo; Click here to install AIM &laquo;</strong></a><br>
+  <span style="font-size:12px;">(Guides for macOS &amp; Windows, plus the truth about web &amp; mobile apps.)</span>
+</p>
+{% endblock %}
