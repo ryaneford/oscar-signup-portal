@@ -59,7 +59,37 @@ Then:
 docker compose up -d signup
 ```
 
-Or run it standalone with the included [`compose.yaml`](compose.yaml):
+Or run it standalone with the included `compose.yaml`:
+
+```yaml
+# Standalone compose file for the signup portal only.
+#
+# This assumes you already have an open-oscar-server instance running
+# (see https://github.com/mk6i/open-oscar-server) and reachable from this
+# container — e.g. on the same Docker network, or via a host/IP.
+#
+# If open-oscar-server is a *sibling* service in the same compose project,
+# just copy the `signup:` block below into that project's docker-compose.yaml
+# instead of running this file standalone, and point OSCAR_API_URL at its
+# service name (e.g. http://open-oscar-server:8080).
+
+services:
+  signup:
+    image: ryaneford/oscar-signup-portal:latest
+    container_name: oscar-signup-portal
+    restart: unless-stopped
+    ports:
+      - "8091:8080"
+    environment:
+      # Internal URL of open-oscar-server's Management API (never expose
+      # this port publicly — the signup portal is the only thing that
+      # should be able to reach it).
+      - OSCAR_API_URL=${OSCAR_API_URL:-http://open-oscar-server:8080}
+      # Public-facing address people will enter into their AIM client.
+      - OSCAR_HOST=${OSCAR_HOST:-aim.example.com}
+      - OSCAR_PORT=${OSCAR_PORT:-5190}
+      - NETWORK_NAME=${NETWORK_NAME:-AIM Network}
+```
 
 ```bash
 git clone https://github.com/ryaneford/oscar-signup-portal.git
