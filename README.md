@@ -7,7 +7,7 @@ screen name without an admin provisioning each account by hand, and ships
 with a plain-language install guide for getting the actual AIM client
 running on modern macOS and Windows.
 
-![Sign-up page and install guide screenshots would go here]()
+![OSCAR Signup Portal sign-up page](screenshot.png)
 
 ## What it does
 
